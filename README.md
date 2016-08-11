@@ -23,7 +23,7 @@ El usuario deberá hacer un check-in ya sea de las tareas o, si es un hábito, c
 El usuario tendrá un perfil público el cuál podrá compartir con las personas que estén en sus circulos el progreso de 
 sus retos, el usuario ganará puntos de experiencia a medida que vaya culminando cada uno. 
 
-A los usuarios se les notificará ciertas actividades que realizen los otros usuarios a quienes siguen y podrán valorar sus retos.
+A los usuarios se les notificará ciertas actividades que realicen los otros usuarios a quienes siguen y podrán valorar sus retos.
 
 
 
