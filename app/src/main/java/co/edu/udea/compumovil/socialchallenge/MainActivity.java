@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -137,7 +138,19 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            //return PlaceholderFragment.newInstance(position + 1);
+            switch (position){
+
+                case 0:
+                    return ChallengeFragment.newInstance(position +1);
+                case 1:
+                    return ProfileFragment.newInstance(position +1);
+                case 2:
+                    return ActivityFragment.newInstance(position +1);
+
+                default:
+                    return null;
+            }
         }
 
         @Override
