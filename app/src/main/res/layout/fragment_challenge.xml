@@ -4,10 +4,17 @@
     android:layout_height="match_parent"
     tools:context="co.edu.udea.compumovil.socialchallenge.ChallengeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/challenge" />
+        android:layout_height="match_parent">
 
+        <ListView
+            android:id="@+id/challenge_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        </ListView>
+
+    </ScrollView>
 </FrameLayout>
