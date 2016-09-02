@@ -8,4 +8,8 @@
     <string name="profile">Profile</string>
     <string name="activity">Activity</string>
     <string name="challenge">Challenge</string>
+    <string name="title_challenge">Your challenge Name</string>
+    <string name="time_spent">How much time you are going to spend?</string>
+    <string name="time_message">You plan to finish at: </string>
+    <string name="save">Save</string>
 </resources>
