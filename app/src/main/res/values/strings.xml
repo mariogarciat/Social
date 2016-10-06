@@ -12,4 +12,5 @@
     <string name="time_spent">How much time you are going to spend?</string>
     <string name="time_message">You plan to finish at: </string>
     <string name="save">Save</string>
+    <string name="facebook_application_id">290331644686531</string>
 </resources>
