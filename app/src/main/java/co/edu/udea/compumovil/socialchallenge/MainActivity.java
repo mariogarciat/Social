@@ -48,28 +48,17 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
 
 
-    private static final int RC_SIGN_IN = 674;
+
 
     private static final int REQUEST_CODE = 10;
-    private FirebaseAuth auth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        auth = FirebaseAuth.getInstance();
 
-        if(auth.getCurrentUser() != null) {
-
-        } else {
-            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-                    .setProviders(
-                            AuthUI.EMAIL_PROVIDER,
-                            AuthUI.FACEBOOK_PROVIDER,
-                            AuthUI.GOOGLE_PROVIDER)
-                    .build(),RC_SIGN_IN);
-        }
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -99,17 +88,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == RC_SIGN_IN) {
-            if(resultCode == RESULT_OK) {
-                // user logged in
-                Log.d("RCC", auth.getCurrentUser().getEmail());
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
