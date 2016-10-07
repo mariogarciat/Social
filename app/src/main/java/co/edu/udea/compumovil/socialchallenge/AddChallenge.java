@@ -23,16 +23,7 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
 
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-        TextView d = (TextView) findViewById(R.id.time_spent_tv);
-        d.setText( getString(R.string.time_message) + day + "/" + month + "/" + year);
 
-        // Build the time spent  and set to the challenge
-        Calendar finalDate = Calendar.getInstance();
-        finalDate.set(Calendar.YEAR, year);
-        finalDate.set(Calendar.MONTH, month);
-        finalDate.set(Calendar.DAY_OF_MONTH, day);
-
-        Calendar actualDate = Calendar.getInstance();
 
 
     }

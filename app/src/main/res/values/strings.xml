@@ -12,13 +12,15 @@
     <string name="time_spent">How much time you are going to spend?</string>
     <string name="time_message">You plan to finish at: </string>
     <string name="save">Save</string>
+    <string name="add_task">Add Task</string>
     <string name="facebook_application_id">290331644686531</string>
-    
+    <string name="profile_name">Unknow User</string>
+    <string name="profile_level">Level</string>
     <string name="profile_age">Age: </string>
     <string name="profile_email">Email: </string>
-    <string name="profile_welcome">Welcome: </string>
+    <string name="profile_welcome">Name: </string>
     <string name="sign_out">Sign Out</string>
-
+    <string name="title_activity_settings">Settings</string>
 
 
 

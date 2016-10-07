@@ -46,30 +46,34 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
 
-        TextView email = (TextView) view.findViewById(R.id.tv_email);
-        ImageView profileImage = (ImageView) view.findViewById(R.id.profile_image);
-        TextView profileName = (TextView) view.findViewById(R.id.tv_profile_name);
+        if(user != null) {
 
-        Glide.with(this)
-                .load(user.getPhotoUrl())
-                .fitCenter()
-                .into(profileImage);
+            TextView email = (TextView) view.findViewById(R.id.tv_email);
+            ImageView profileImage = (ImageView) view.findViewById(R.id.profile_image);
+            TextView profileName = (TextView) view.findViewById(R.id.tv_profile_name);
 
-        profileName.setText(getString(R.string.profile_welcome)+user.getDisplayName());
-        email.setText(getString(R.string.profile_email) + auth.getCurrentUser().getEmail());
-        ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
-        experienceBar.setProgress(50);
+            Glide.with(this)
+                    .load(user.getPhotoUrl())
+                    .fitCenter()
+                    .into(profileImage);
 
-        Button signOut = (Button) view.findViewById(R.id.sign_out_button);
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                auth.signOut();
-                Intent intent = new Intent(getContext(),LoginActivity.class);
-                startActivity(intent);
+            profileName.setText(getString(R.string.profile_welcome)+user.getDisplayName());
+            email.setText(getString(R.string.profile_email) + auth.getCurrentUser().getEmail());
+            ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
+            // Change this when user data is up
+            experienceBar.setProgress(10);
 
-            }
-        });
+            Button signOut = (Button) view.findViewById(R.id.sign_out_button);
+            signOut.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    auth.signOut();
+                    Intent intent = new Intent(getContext(),LoginActivity.class);
+                    startActivity(intent);
+
+                }
+            });
+        }
 
 
         return view;
