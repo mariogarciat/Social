@@ -11,6 +11,7 @@
     tools:context="co.edu.udea.compumovil.socialchallenge.AddChallenge">
 
     <EditText
+        android:id="@+id/challenge_name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/title_challenge"
@@ -46,6 +47,24 @@
             android:text="Thu"
             android:layout_below="@+id/c_thu"
             android:layout_toRightOf="@+id/c_wed"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fry"
+            android:layout_below="@+id/c_fry"
+            android:layout_toRightOf="@+id/c_thu"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sat"
+            android:layout_below="@+id/c_sat"
+            android:layout_toRightOf="@+id/c_fry"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sun"
+            android:layout_below="@+id/c_sun"
+            android:layout_toRightOf="@+id/c_sat"/>
 
         <CheckBox
             android:id="@+id/c_mon"
@@ -67,6 +86,24 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/c_wed"/>
 
+        <CheckBox
+            android:id="@+id/c_fry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/c_thu"/>
+
+        <CheckBox
+            android:id="@+id/c_sat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/c_fry"/>
+
+        <CheckBox
+            android:id="@+id/c_sun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/c_sat"/>
+
 
     </RelativeLayout>
 
@@ -81,7 +118,8 @@
             android:layout_height="wrap_content"
             android:text="@string/add_task"
             android:background="@drawable/button_background"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:onClick="onClickButton"/>
 
         <ListView
             android:layout_width="match_parent"

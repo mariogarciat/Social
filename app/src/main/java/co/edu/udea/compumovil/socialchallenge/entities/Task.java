@@ -9,7 +9,7 @@ import java.util.Calendar;
 /**
  * Created by Steven on 31/08/2016.
  */
-public class Task extends SugarRecord {
+public class Task  {
 
     private String name;
     private Calendar createAt;

@@ -3,21 +3,24 @@ package co.edu.udea.compumovil.socialchallenge.entities;
 import com.orm.SugarRecord;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Steven on 31/08/2016.
  */
-public class Challenge extends SugarRecord{
+public class Challenge {
 
     private String title;
     private String timeSpent;
     private List<Task> tasks;
 
-    public Challenge(String title, String timeSpent, List<Task> tasks) {
+
+    public Challenge( String title, String timeSpent, List<Task> tasks) {
         this.title = title;
         this.timeSpent = timeSpent;
         this.tasks = tasks;
     }
+
     public Challenge(){
 
     }
