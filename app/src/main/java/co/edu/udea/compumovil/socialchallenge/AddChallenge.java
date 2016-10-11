@@ -52,14 +52,6 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
 
     }
 
-    public void showDatePickerDialog(View v) {
-        final String TAG = "DATE_PICKER";
-        FragmentManager fm = getFragmentManager();
-        DatePickerFragment dialogFragment = new DatePickerFragment();
-        dialogFragment.show(fm, TAG);
-
-    }
-
     public void onClickButton(View view) {
 
         if (auth.getCurrentUser() != null) {
