@@ -18,7 +18,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
+import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
 
 public class AddChallenge extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
@@ -64,7 +68,12 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
             String name = challengeName.getText().toString();
             FirebaseUser user = auth.getCurrentUser();
             Challenge challenge = new Challenge();
+            List<Task> task = new ArrayList<>();
+            task.add(new Task("task 1"));
+            task.add(new Task("task 2"));
+            task.add(new Task("task 3"));
             challenge.setTitle(name);
+            challenge.setTasks(task);
             mDatabase.child(user.getUid()).push().setValue(challenge);
             Toast.makeText(this, "Challenge added" + user.getUid(), Toast.LENGTH_LONG).show();
         }
