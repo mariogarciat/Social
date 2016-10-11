@@ -23,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
-    FirebaseUser user;
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,9 +1,9 @@
 package co.edu.udea.compumovil.socialchallenge.entities;
 
-import com.orm.SugarRecord;
+
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 /**
  * Created by Steven on 31/08/2016.

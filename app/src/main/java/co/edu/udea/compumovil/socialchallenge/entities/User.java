@@ -34,7 +34,7 @@ public class User {
     public User(String displayName, String email) {
         this.displayName = displayName;
         this.email = email;
-        this.lvl = 0;
+        this.lvl = 1;
         this.exp = 0;
 
     }

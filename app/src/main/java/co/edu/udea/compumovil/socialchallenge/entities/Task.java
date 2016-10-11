@@ -2,7 +2,6 @@ package co.edu.udea.compumovil.socialchallenge.entities;
 
 
 
-import com.orm.SugarRecord;
 
 import java.util.Calendar;
 
