@@ -57,6 +57,7 @@ public class ChallengeFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges")
         .child(auth.getCurrentUser().getUid());
+        mDatabase.keepSynced(true);
 
 
 
