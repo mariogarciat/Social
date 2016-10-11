@@ -8,14 +8,35 @@ public class User {
 
     private String displayName;
     private String email;
+    private Integer exp;
+    private Integer lvl;
 
     public User() {
 
     }
 
+    public Integer getExp() {
+        return exp;
+    }
+
+    public void setExp(Integer exp) {
+        this.exp = exp;
+    }
+
+    public Integer getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(Integer lvl) {
+        this.lvl = lvl;
+    }
+
     public User(String displayName, String email) {
         this.displayName = displayName;
         this.email = email;
+        this.lvl = 0;
+        this.exp = 0;
+
     }
 
     public String getDisplayName() {

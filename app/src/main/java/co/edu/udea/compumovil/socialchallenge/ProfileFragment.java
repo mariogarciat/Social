@@ -57,7 +57,7 @@ public class ProfileFragment extends Fragment {
                     .fitCenter()
                     .into(profileImage);
 
-            profileName.setText(getString(R.string.profile_welcome)+user.getDisplayName());
+            profileName.setText(user.getDisplayName());
             email.setText(getString(R.string.profile_email) + auth.getCurrentUser().getEmail());
             ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
             // Change this when user data is up

@@ -18,7 +18,7 @@
     <string name="profile_level">Level</string>
     <string name="profile_age">Age: </string>
     <string name="profile_email">Email: </string>
-    <string name="profile_welcome">Name: </string>
+    <string name="profile_welcome">Name</string>
     <string name="sign_out">Sign Out</string>
     <string name="title_activity_settings">Settings</string>
 
