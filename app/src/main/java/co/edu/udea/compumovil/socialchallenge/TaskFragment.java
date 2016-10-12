@@ -10,7 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
+
+import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
 
 /**
@@ -18,17 +29,23 @@ import android.widget.EditText;
  */
 public class TaskFragment extends DialogFragment {
 
-    private EditText textTask;
+    private EditText editTask;
+    private EditText editBegin;
+    private EditText editFinish;
     private String stringTask;
+    private String sBeginAt;
+    private String sFinishAt;
+    private List<String> listDays;
+    private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
+    private Task task;
+
+
 
     public TaskFragment() {
         // Required empty public constructor
     }
 
-    public interface onSomeEventListener{
-        public void someEvent(String s);
-    }
-    onSomeEventListener someEventListener;
 
     static TaskFragment newInstance(int num){
         TaskFragment tf = new TaskFragment();
@@ -40,24 +57,21 @@ public class TaskFragment extends DialogFragment {
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        try {
-            someEventListener = (onSomeEventListener) context;
-        }catch (ClassCastException e){
-            throw new ClassCastException(context.toString() + " must implement onSomeEventListener");
-        }
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task, null);
-        Log.d("tag", "antes del boton");
-        textTask = (EditText)view.findViewById(R.id.editText_task);/*
-        stringTask = textTask.getText().toString();
 
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges").child("tasks");
+        auth = FirebaseAuth.getInstance();
+
+        task = new Task();
+
+        editTask = (EditText)view.findViewById(R.id.editText_task);
+        editBegin = (EditText) view.findViewById(R.id.edit_beginAt);
+        editFinish = (EditText) view.findViewById(R.id.edit_finishAt);
+
+        /*
         Log.d("tag", "antes del boton");
         Log.d("tag3", stringTask);
         Button button = (Button) view.findViewById(R.id.task_added);
@@ -72,14 +86,56 @@ public class TaskFragment extends DialogFragment {
         return view;
     }
 
+    public void onCheckBoxSelected(View view){
+        boolean checked = ((CheckBox)view).isChecked();
+
+        switch (view.getId()){
+            case R.id.c_mon:
+                if (checked){
+                    listDays.add("Moday");
+                }
+            case R.id.c_tue:
+                if (checked){
+                    listDays.add("Tuesday");
+                }
+            case R.id.c_wed:
+                if (checked){
+                    listDays.add("Wednesday");
+                }
+            case R.id.c_thu:
+                if (checked){
+                    listDays.add("Thursday");
+                }
+            case R.id.c_fry:
+                if (checked){
+                    listDays.add("Friday");
+                }
+            case R.id.c_sat:
+                if (checked){
+                    listDays.add("Saturday");
+                }
+            case R.id.c_sun:
+                if (checked){
+                    listDays.add("Sunday");
+                }
+        }
+        task.setDays(listDays);
+    }
+
     public void onTaskAdded(View view){
 
+        FirebaseUser user = auth.getCurrentUser();
 
-        stringTask = textTask.getText().toString();
-        Log.d("tag3", stringTask);
+        stringTask = editTask.getText().toString();
+        sBeginAt = editBegin.getText().toString();
+        sFinishAt = editFinish.getText().toString();
 
-        someEventListener.someEvent(stringTask);
-        Log.d("tag2", stringTask+"preparado");
+        task.setName(stringTask);
+        task.setTimeBegin(sBeginAt);
+        task.setTimeEnd(sFinishAt);
+
+        mDatabase.child(user.getUid()).push().setValue(task);
+        Log.d("tag", "task added");
     }
 
 

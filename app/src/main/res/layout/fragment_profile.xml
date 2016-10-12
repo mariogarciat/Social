@@ -100,14 +100,7 @@
         </ScrollView>
 
 
-        <Button
-            android:id="@+id/sign_out_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_background"
-            android:text="@string/sign_out"
-            android:textColor="@color/colorBackground"/>
+
 
 
     </LinearLayout>

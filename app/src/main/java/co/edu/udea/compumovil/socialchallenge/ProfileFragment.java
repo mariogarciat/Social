@@ -62,17 +62,7 @@ public class ProfileFragment extends Fragment {
             ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
             // Change this when user data is up
             experienceBar.setProgress(10);
-
-            Button signOut = (Button) view.findViewById(R.id.sign_out_button);
-            signOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    auth.signOut();
-                    Intent intent = new Intent(getContext(),LoginActivity.class);
-                    startActivity(intent);
-
-                }
-            });
+            
         }
 
 
