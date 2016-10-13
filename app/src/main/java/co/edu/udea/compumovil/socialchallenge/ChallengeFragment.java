@@ -1,6 +1,7 @@
 package co.edu.udea.compumovil.socialchallenge;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,6 +62,14 @@ public class ChallengeFragment extends Fragment {
         mDatabase.keepSynced(true);
 
 
+        Button button = (Button) view.findViewById(R.id.add_challenge_btn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(getContext(), AddChallenge.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
 

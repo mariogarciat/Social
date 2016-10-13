@@ -60,7 +60,7 @@ public class TaskFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_task, null);
+        View view = inflater.inflate(R.layout.fragment_task, container, false);
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges").child("tasks");
         auth = FirebaseAuth.getInstance();
@@ -71,10 +71,33 @@ public class TaskFragment extends DialogFragment {
         editBegin = (EditText) view.findViewById(R.id.edit_beginAt);
         editFinish = (EditText) view.findViewById(R.id.edit_finishAt);
 
+        Button buttonAddTask = (Button) view.findViewById(R.id.task_added);
+        buttonAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseUser user = auth.getCurrentUser();
+
+                stringTask = editTask.getText().toString();
+                sBeginAt = editBegin.getText().toString();
+                sFinishAt = editFinish.getText().toString();
+
+                task.setName(stringTask);
+                task.setTimeBegin(sBeginAt);
+                task.setTimeEnd(sFinishAt);
+
+                mDatabase.child(user.getUid()).push().setValue(task);
+                Log.d("tag", "task added: " + task.getName());
+
+            }
+        });
+
+
+
+
         /*
         Log.d("tag", "antes del boton");
         Log.d("tag3", stringTask);
-        Button button = (Button) view.findViewById(R.id.task_added);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +144,7 @@ public class TaskFragment extends DialogFragment {
         }
         task.setDays(listDays);
     }
-
+/*
     public void onTaskAdded(View view){
 
         FirebaseUser user = auth.getCurrentUser();
@@ -136,7 +159,7 @@ public class TaskFragment extends DialogFragment {
 
         mDatabase.child(user.getUid()).push().setValue(task);
         Log.d("tag", "task added");
-    }
+    }*/
 
 
 

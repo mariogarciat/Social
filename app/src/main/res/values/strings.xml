@@ -24,6 +24,7 @@
     <string name="title_task">Task name</string>
     <string name="add_challenge">Add Challenge</string>
     <string name="change_language">Change Language</string>
+    <string name="save_challenge">Save Challenge</string>
 
 
 </resources>

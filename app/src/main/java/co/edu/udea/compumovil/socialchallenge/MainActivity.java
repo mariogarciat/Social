@@ -47,12 +47,6 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
-
-
-
-    private static final int REQUEST_CODE = 10;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,15 +68,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                Intent intent =  new Intent(getApplicationContext(), AddChallenge.class);
-                startActivityForResult(intent,REQUEST_CODE);
-            }
-        });
 
 
 

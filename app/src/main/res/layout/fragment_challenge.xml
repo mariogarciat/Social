@@ -15,4 +15,14 @@
 
 
     </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/add_challenge_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_challenge"
+        android:background="@drawable/button_background"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="bottom"
+        android:textColor="@color/colorBackground"/>
 </FrameLayout>
