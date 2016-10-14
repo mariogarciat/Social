@@ -34,7 +34,7 @@
             android:onClick="onClickAddTask"
             android:textColor="@color/colorBackground"/>
 
-        <android.support.v7.widget.RecyclerView
+        <ListView
             android:id="@+id/task_list"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
@@ -42,7 +42,7 @@
             android:layout_height="match_parent">
 
 
-        </android.support.v7.widget.RecyclerView>
+        </ListView>
 
 
     </LinearLayout>

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,69 +28,54 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.udea.compumovil.socialchallenge.adapters.TaskAdapter;
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
 
-public class AddChallenge extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class AddChallenge extends AppCompatActivity  {
 
 
     private DatabaseReference mDatabase;
     private TextView challengeName;
     private FirebaseAuth auth;
-    private RecyclerView listTasks;
+    private ListView listTasks;
     private static final int REQUEST_CODE = 10;
     private String taskName;
     private String beginTask;
     private String finishTask;
     private List<String> taskDays;
     private List<Task> taskList;
-    private Task task;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_challenge);
 
-        listTasks = (RecyclerView) findViewById(R.id.task_list);
-        listTasks.setHasFixedSize(true);
-        listTasks.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        listTasks = (ListView) findViewById(R.id.task_list);
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges")
         .child(auth.getCurrentUser().getUid());
         mDatabase.keepSynced(true);
 
-        task = new Task();
+
         taskList = new ArrayList<>();
         taskDays = new ArrayList<>();
+        this.listTasks.setAdapter(new TaskAdapter(this, taskList));
     }
 
-    @Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-    }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Task, AddChallenge.MessageViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Task, AddChallenge.MessageViewHolder>(
 
-                        Task.class,
-                        android.R.layout.two_line_list_item,
-                        AddChallenge.MessageViewHolder.class,
-                        mDatabase
-                ) {
-                    @Override
-                    protected void populateViewHolder(AddChallenge.MessageViewHolder viewHolder, Task model, int position) {
-                        viewHolder.mText.setText(model.getName());
-                    }
-                };
-
-        listTasks.setAdapter(adapter);
 
     }
+
+
 
     public  static class MessageViewHolder
             extends RecyclerView.ViewHolder {
@@ -143,6 +129,8 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
             Toast.makeText(getApplicationContext(), "data es nulo", Toast.LENGTH_SHORT).show();
         }
 
+        Task task = new Task();
+
         task.setName(taskName);
         Log.d("tag", "name setted");
         task.setTimeBegin(beginTask);
@@ -153,6 +141,7 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
         Log.d("tag", "boolean setted");
         taskList.add(task);
         Log.d("tag", "task added");
+        listTasks.setAdapter(new TaskAdapter(this,taskList));
     }
 
     public void onClickSaveChallenge(View view){
@@ -171,7 +160,7 @@ public class AddChallenge extends AppCompatActivity implements DatePickerDialog.
             task.add(new Task("task 3"));
             challenge.setTasks(task);*/
 
-            mDatabase.child(user.getUid()).push().setValue(challenge);
+            mDatabase.push().setValue(challenge);
             Toast.makeText(this, "Challenge added" + user.getUid(), Toast.LENGTH_LONG).show();
         }
     }
