@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ListView;
@@ -66,6 +68,42 @@ public class AddChallenge extends AppCompatActivity  {
         this.listTasks.setAdapter(new TaskAdapter(this, taskList));
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_challenge, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if(id == R.id.button_save) {
+
+
+            if (auth.getCurrentUser() != null) {
+                challengeName = (TextView) findViewById(R.id.challenge_name_edit);
+                Challenge challenge = new Challenge();
+                String name = challengeName.getText().toString();
+
+                challenge.setTitle(name);
+                challenge.setTasks(taskList);
+
+                mDatabase.push().setValue(challenge);
+                Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
     @Override
     protected void onStart() {
@@ -76,17 +114,6 @@ public class AddChallenge extends AppCompatActivity  {
     }
 
 
-
-    public  static class MessageViewHolder
-            extends RecyclerView.ViewHolder {
-
-        TextView mText;
-
-        public MessageViewHolder(View itemView) {
-            super(itemView);
-            mText = (TextView) itemView.findViewById(android.R.id.text1);
-        }
-    }
 
     public void onClickAddTask(View view) {
 
@@ -144,29 +171,5 @@ public class AddChallenge extends AppCompatActivity  {
         listTasks.setAdapter(new TaskAdapter(this,taskList));
     }
 
-    public void onClickSaveChallenge(View view){
 
-        if (auth.getCurrentUser() != null) {
-            challengeName = (TextView) findViewById(R.id.challenge_name_edit);
-            FirebaseUser user = auth.getCurrentUser();
-            Challenge challenge = new Challenge();
-            String name = challengeName.getText().toString();
-
-            challenge.setTitle(name);
-            challenge.setTasks(taskList);
-            /*List<Task> task = new ArrayList<>();
-            task.add(new Task("task 1"));
-            task.add(new Task("task 2"));
-            task.add(new Task("task 3"));
-            challenge.setTasks(task);*/
-
-            mDatabase.push().setValue(challenge);
-            Toast.makeText(this, "Challenge added" + user.getUid(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void onClickSave(View view) {
-        Snackbar.make(view, "Challenge saved", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-    }
 }
