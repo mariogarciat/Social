@@ -62,15 +62,6 @@ public class ChallengeFragment extends Fragment {
         mDatabase.keepSynced(true);
 
 
-        Button button = (Button) view.findViewById(R.id.add_challenge_btn);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(getContext(), AddChallenge.class);
-                startActivity(intent);
-            }
-        });
-
         return view;
 
     }

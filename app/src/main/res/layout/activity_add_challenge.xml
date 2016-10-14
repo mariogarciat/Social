@@ -32,7 +32,7 @@
             android:background="@drawable/button_background"
             android:layout_marginTop="10dp"
             android:onClick="onClickAddTask"
-            android:textColor="@color/colorBackground"/>
+            android:textColor="@color/colorWhite"/>
 
         <ListView
             android:id="@+id/task_list"
@@ -56,7 +56,7 @@
         android:layout_marginTop="10dp"
         android:onClick="onClickSaveChallenge"
         android:layout_gravity="bottom"
-        android:textColor="@color/colorBackground"/>
+        android:textColor="@color/colorWhite"/>
 
     
 </LinearLayout>

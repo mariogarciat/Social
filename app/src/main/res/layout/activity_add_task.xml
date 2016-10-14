@@ -175,5 +175,6 @@
         android:layout_marginTop="50dp"
         android:id="@+id/task_added"
         android:onClick="onTaskAdded"
-        android:background="@drawable/button_background"/>
+        android:background="@drawable/button_background"
+        android:textColor="@color/colorWhite"/>
 </LinearLayout>

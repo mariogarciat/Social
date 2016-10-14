@@ -96,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        if(id == R.id.button_add) {
+
+
+            Intent intent =  new Intent(this, AddChallenge.class);
+            startActivity(intent);
+
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
