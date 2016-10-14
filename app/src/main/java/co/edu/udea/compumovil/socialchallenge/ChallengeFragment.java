@@ -10,18 +10,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
+
 import android.widget.TextView;
+
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 
@@ -33,7 +31,6 @@ public class ChallengeFragment extends Fragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private RecyclerView listChallenges;
-    private List<Challenge> challenges;
     private DatabaseReference mDatabase;
     FirebaseAuth auth;
 
@@ -71,17 +68,32 @@ public class ChallengeFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerAdapter<Challenge, MessageViewHolder> adapter =
+        final FirebaseRecyclerAdapter<Challenge, MessageViewHolder> adapter =
                 new FirebaseRecyclerAdapter<Challenge, MessageViewHolder>(
 
                         Challenge.class,
-                        android.R.layout.two_line_list_item,
+                        R.layout.layout_list_challenges,
                         MessageViewHolder.class,
                         mDatabase
                 ) {
                     @Override
-                    protected void populateViewHolder(MessageViewHolder viewHolder, Challenge model, int position) {
+                    protected void populateViewHolder(MessageViewHolder viewHolder,
+                                                      final Challenge model, final int position) {
                         viewHolder.mText.setText(model.getTitle());
+                        if(model.isFinish()){
+                            viewHolder.mText.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
+                        }
+
+                        viewHolder.mText.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                Intent intent = new Intent(getContext(),ChallengeDetailsActivity.class);
+                                intent.putExtra("challengeID", getRef(position).getKey());
+                                Log.d("MyApp",getRef(position).getKey());
+                                startActivity(intent);
+                            }
+                        });
                     }
                 };
 
@@ -93,9 +105,13 @@ public class ChallengeFragment extends Fragment {
 
         TextView mText;
 
+
         public MessageViewHolder(View itemView) {
             super(itemView);
-            mText = (TextView) itemView.findViewById(android.R.id.text1);
+            mText = (TextView) itemView.findViewById(R.id.text1);
+
         }
+
+
     }
 }

@@ -13,16 +13,26 @@ public class Challenge {
     private String title;
     private String timeSpent;
     private List<Task> tasks;
+    private boolean isFinish;
 
 
     public Challenge( String title, String timeSpent, List<Task> tasks) {
         this.title = title;
         this.timeSpent = timeSpent;
         this.tasks = tasks;
+        this.isFinish = false;
     }
 
     public Challenge(){
 
+    }
+
+    public boolean isFinish() {
+        return isFinish;
+    }
+
+    public void setFinish(boolean finish) {
+        isFinish = finish;
     }
 
     public String getTitle() {
