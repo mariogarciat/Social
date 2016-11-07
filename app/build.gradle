@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "co.edu.udea.compumovil.socialchallenge"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"

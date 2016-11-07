@@ -1,11 +1,13 @@
 package co.edu.udea.compumovil.socialchallenge;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,11 +21,11 @@ import java.util.List;
 
 import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
-public class AddTask extends AppCompatActivity {
+public class AddTaskActivity extends AppCompatActivity {
 
     private EditText editTask;
-    private EditText editBegin;
-    private EditText editFinish;
+    private TextView editBegin;
+    private TextView editFinish;
     private String stringTask;
     private String sBeginAt;
     private String sFinishAt;
@@ -44,8 +46,8 @@ public class AddTask extends AppCompatActivity {
         listDays = new ArrayList<>();
 
         editTask = (EditText) findViewById(R.id.editText_task);
-        editBegin = (EditText) findViewById(R.id.edit_beginAt);
-        editFinish = (EditText) findViewById(R.id.edit_finishAt);
+        editBegin = (TextView) findViewById(R.id.edit_beginAt);
+        editFinish = (TextView) findViewById(R.id.edit_finishAt);
 
     }
 
@@ -106,6 +108,21 @@ public class AddTask extends AppCompatActivity {
             super.finish();
         }else {
             Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public void showTimePickerDialog(View v) {
+
+        DialogFragment newFragment = new TimePickerFragment();
+        switch (v.getId()) {
+            case R.id.edit_beginAt:
+                newFragment.show(this.getFragmentManager(), "begin");
+                return;
+            case R.id.edit_finishAt:
+                newFragment.show(this.getFragmentManager(), "finish");
+                return;
         }
 
 

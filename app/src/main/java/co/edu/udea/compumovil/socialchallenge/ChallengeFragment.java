@@ -51,7 +51,7 @@ public class ChallengeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_challenge, container, false);
         listChallenges = (RecyclerView) view.findViewById(R.id.challenge_list);
-        listChallenges.setHasFixedSize(true);
+        //listChallenges.setHasFixedSize(true);
         listChallenges.setLayoutManager(new LinearLayoutManager(getContext()));
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges")

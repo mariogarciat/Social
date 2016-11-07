@@ -73,41 +73,6 @@ public class Task{
         this.days = days;
     }
 
-/*
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(timeBegin);
-        dest.writeString(timeEnd);
-        dest.writeInt(isFinished ? 1 : 0);
-        dest.writeStringList(days);
-    }
-
-    public Task(Parcel in){
-        name = in.readString();
-        timeBegin = in.readString();
-        timeEnd = in.readString();
-        isFinished = in.readInt() != 0;
-        in.readStringList(days);
-    }
-
-    public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>(){
-
-        @Override
-        public Task createFromParcel(Parcel in) {
-            return new Task(in);
-        }
-
-        @Override
-        public Task[] newArray(int size) {
-            return new Task[0];
-        }
-    };*/
 
 
 }
