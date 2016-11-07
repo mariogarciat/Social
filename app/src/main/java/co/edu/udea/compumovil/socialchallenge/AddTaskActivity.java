@@ -4,6 +4,8 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -50,7 +53,50 @@ public class AddTaskActivity extends AppCompatActivity {
         editFinish = (TextView) findViewById(R.id.edit_finishAt);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_add_challenge, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        if(id == R.id.button_save) {
+
+
+            if (auth.getCurrentUser() != null) {
+
+                stringTask = editTask.getText().toString();
+                sBeginAt = editBegin.getText().toString();
+                sFinishAt = editFinish.getText().toString();
+
+                if(!"".equals(stringTask) && !"".equals(sBeginAt) && !"".equals(sFinishAt)){
+
+                    Intent intent = new Intent();
+                    intent.putExtra("name", stringTask);
+                    intent.putExtra("begin", sBeginAt);
+                    intent.putExtra("finish", sFinishAt);
+
+                    setResult(RESULT_OK, intent);
+                    super.finish();
+                }else {
+                    Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     public void onCheckBoxSelected(View view){
         boolean checked = ((CheckBox)view).isChecked();
 
@@ -86,32 +132,7 @@ public class AddTaskActivity extends AppCompatActivity {
         }
     }
 
-    public void onTaskAdded(View view){
 
-        stringTask = editTask.getText().toString();
-        sBeginAt = editBegin.getText().toString();
-        sFinishAt = editFinish.getText().toString();
-
-        if(!"".equals(stringTask) && !"".equals(sBeginAt) && !"".equals(sFinishAt)){
-
-            Intent intent = new Intent();
-       /* task.setName(stringTask);
-        task.setTimeBegin(sBeginAt);
-        task.setTimeEnd(sFinishAt);
-        task.setDays(listDays);
-        intent.putExtra("task", task);*/
-            intent.putExtra("name", stringTask);
-            intent.putExtra("begin", sBeginAt);
-            intent.putExtra("finish", sFinishAt);
-
-            setResult(RESULT_OK, intent);
-            super.finish();
-        }else {
-            Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_SHORT).show();
-        }
-
-
-    }
 
     public void showTimePickerDialog(View v) {
 

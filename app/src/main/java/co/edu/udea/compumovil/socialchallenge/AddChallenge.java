@@ -4,6 +4,7 @@ package co.edu.udea.compumovil.socialchallenge;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -75,18 +76,22 @@ public class AddChallenge extends AppCompatActivity  {
         //noinspection SimplifiableIfStatement
 
         if(id == R.id.button_save) {
+            challengeName = (TextView) findViewById(R.id.challenge_name_edit);
+            String name = challengeName.getText().toString();
+            if (auth.getCurrentUser() != null && !TextUtils.isEmpty(name)) {
 
-
-            if (auth.getCurrentUser() != null) {
-                challengeName = (TextView) findViewById(R.id.challenge_name_edit);
                 Challenge challenge = new Challenge();
-                String name = challengeName.getText().toString();
+
 
                 challenge.setTitle(name);
                 challenge.setTasks(taskList);
 
                 mDatabase.push().setValue(challenge);
                 Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
+                this.finish();
+            }else {
+
+                Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_LONG).show();
             }
 
         }

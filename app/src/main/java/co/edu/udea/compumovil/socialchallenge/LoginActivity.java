@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                             AuthUI.GOOGLE_PROVIDER)
                     .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                     .setTheme(R.style.AppTheme)
+                    .setLogo(R.drawable.logo)
                     .build(), RC_SIGN_IN);
         }
 
