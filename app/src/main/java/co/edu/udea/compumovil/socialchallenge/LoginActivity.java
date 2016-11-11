@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
 
 
+
         }else {
             startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
                     .setProviders(
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
-                this.finish();
+
             }
         }
     }
@@ -101,5 +102,11 @@ public class LoginActivity extends AppCompatActivity {
         User user = new User(name, email);
 
         mDatabase.child(userId).setValue(user);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        this.finish();
     }
 }
