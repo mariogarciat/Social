@@ -60,9 +60,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == RC_SIGN_IN){
+
             if(resultCode == RESULT_OK){
-
-
 
                 user = auth.getCurrentUser();
 
@@ -78,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                             // User Does not Exists
                             Log.d("MyApp","Its alive");
                             writeNewUser(user.getUid(),user.getDisplayName(), user.getEmail());
+                        }else {
+                            Log.d("MyApp","is bad");
                         }
                     }
 
@@ -107,6 +108,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        this.finish();
+        //this.finish();
     }
 }

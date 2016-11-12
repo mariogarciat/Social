@@ -10,7 +10,7 @@
     tools:context="co.edu.udea.compumovil.socialchallenge.ProfileFragment">
 
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -39,16 +39,11 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"/>
 
-        </RelativeLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_below="@id/tv_profile_name"
                 >
 
                 <ProgressBar
@@ -97,13 +92,12 @@
 
 
             </LinearLayout>
-        </ScrollView>
+
+        </RelativeLayout>
 
 
 
-
-
-    </LinearLayout>
+    </ScrollView>
 
 
 

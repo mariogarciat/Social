@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -84,6 +86,11 @@ public class ChallengeFragment extends Fragment {
                             viewHolder.mText.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
                         }
 
+                        Glide.with(getContext())
+                                .load(auth.getCurrentUser().getPhotoUrl())
+                                .fitCenter()
+                                .into(viewHolder.mImageView);
+
                         viewHolder.mText.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -104,11 +111,13 @@ public class ChallengeFragment extends Fragment {
         extends RecyclerView.ViewHolder {
 
         TextView mText;
+        ImageView mImageView;
 
 
         public MessageViewHolder(View itemView) {
             super(itemView);
             mText = (TextView) itemView.findViewById(R.id.text1);
+            mImageView = (ImageView) itemView.findViewById(R.id.profile_image);
 
         }
 

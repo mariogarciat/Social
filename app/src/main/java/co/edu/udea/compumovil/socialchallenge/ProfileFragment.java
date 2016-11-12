@@ -3,7 +3,10 @@ package co.edu.udea.compumovil.socialchallenge;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Double2;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,14 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import co.edu.udea.compumovil.socialchallenge.entities.User;
 
 
 /**
@@ -25,6 +36,8 @@ public class ProfileFragment extends Fragment {
 
     // Auth info
     private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
+    private FirebaseUser user;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     public ProfileFragment() {
@@ -42,31 +55,58 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        final View view = inflater.inflate(R.layout.fragment_profile, container, false);
         auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        user = auth.getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
 
         if(user != null) {
+            updateUI(view);
 
-            TextView email = (TextView) view.findViewById(R.id.tv_email);
-            ImageView profileImage = (ImageView) view.findViewById(R.id.profile_image);
-            TextView profileName = (TextView) view.findViewById(R.id.tv_profile_name);
-
-            Glide.with(this)
-                    .load(user.getPhotoUrl())
-                    .fitCenter()
-                    .into(profileImage);
-
-            profileName.setText(user.getDisplayName());
-            email.setText(auth.getCurrentUser().getEmail());
-            ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
             // Change this when user data is up
-            experienceBar.setProgress(10);
+            DatabaseReference userRef = mDatabase.child(user.getUid());
+
+            ValueEventListener ExpListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    updateExperience(view, user.getExp());
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
+
+            userRef.addValueEventListener(ExpListener);
             
         }
 
 
         return view;
+    }
+
+    protected void updateUI(View view) {
+        TextView email = (TextView) view.findViewById(R.id.tv_email);
+        ImageView profileImage = (ImageView) view.findViewById(R.id.profile_image);
+        TextView profileName = (TextView) view.findViewById(R.id.tv_profile_name);
+
+
+        Glide.with(this)
+                .load(user.getPhotoUrl())
+                .fitCenter()
+                .into(profileImage);
+
+        profileName.setText(user.getDisplayName());
+        email.setText(auth.getCurrentUser().getEmail());
+
+    }
+
+    protected void updateExperience(View view, int exp) {
+
+        ProgressBar experienceBar = (ProgressBar) view.findViewById(R.id.experience_bar);
+        experienceBar.setProgress(exp);
     }
 
 
