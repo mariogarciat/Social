@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Steven on 31/08/2016.
  */
-public class Task{
+public class Task implements Serializable{
 
     private String name;
     private String timeBegin;
@@ -26,7 +26,7 @@ public class Task{
         this.name = name;
         this.timeBegin = timeBegin;
         this.timeEnd = timeEnd;
-        this.isFinished = isFinished;
+        this.isFinished = false;
         this.days = days;
     }
 

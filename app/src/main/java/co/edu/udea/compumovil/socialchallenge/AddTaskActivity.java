@@ -1,9 +1,13 @@
 package co.edu.udea.compumovil.socialchallenge;
 
+import android.app.AlarmManager;
 import android.app.DialogFragment;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
@@ -71,28 +76,31 @@ public class AddTaskActivity extends AppCompatActivity {
 
         if(id == R.id.button_save) {
 
-
             if (auth.getCurrentUser() != null) {
 
                 stringTask = editTask.getText().toString();
                 sBeginAt = editBegin.getText().toString();
                 sFinishAt = editFinish.getText().toString();
-
+                
                 if(!"".equals(stringTask) && !"".equals(sBeginAt) && !"".equals(sFinishAt)){
 
-                    Intent intent = new Intent();
-                    intent.putExtra("name", stringTask);
-                    intent.putExtra("begin", sBeginAt);
-                    intent.putExtra("finish", sFinishAt);
+                    task.setName(stringTask);
+                    task.setTimeBegin(sBeginAt);
+                    task.setTimeEnd(sFinishAt);
+                    Log.d("tag", "listDays "+ listDays.get(1));
+                    task.setDays(listDays);
 
+                    Intent intent = new Intent();
+                    intent.putExtra("task", task);
+                    /*intent.putExtra("name", stringTask);
+                    intent.putExtra("begin", sBeginAt);
+                    intent.putExtra("finish", sFinishAt);*/
                     setResult(RESULT_OK, intent);
                     super.finish();
                 }else {
                     Toast.makeText(getApplicationContext(), "Please enter all data", Toast.LENGTH_SHORT).show();
                 }
-
             }
-
         }
 
         return super.onOptionsItemSelected(item);
@@ -131,8 +139,6 @@ public class AddTaskActivity extends AppCompatActivity {
                 }
         }
     }
-
-
 
     public void showTimePickerDialog(View v) {
 

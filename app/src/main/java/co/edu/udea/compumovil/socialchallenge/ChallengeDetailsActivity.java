@@ -6,7 +6,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,10 +56,30 @@ public class ChallengeDetailsActivity extends AppCompatActivity {
                 ) {
 
                     @Override
-                    protected void populateViewHolder(MessageViewHolder viewHolder, Task model, int position) {
+                    protected void populateViewHolder(final MessageViewHolder viewHolder, final Task model, int position) {
                         viewHolder.mText.setText(model.getName());
                         viewHolder.mFrom.setText(model.getTimeBegin());
                         viewHolder.mTo.setText(model.getTimeEnd());
+
+                        /*viewHolder.mCheck.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                viewHolder.mLayout.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
+                                Toast.makeText(getApplicationContext(), "Task "+model.getName()+" completed", Toast.LENGTH_SHORT).show();
+                            }
+                        });*/
+                        viewHolder.mCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if(buttonView.isChecked()){
+                                    viewHolder.mLayout.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
+                                    viewHolder.mCheck.setEnabled(false);
+                                    model.setFinished(true);
+                                    Toast.makeText(getApplicationContext(), "Task "+model.getName()+" completed", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                     }
                 };
 
@@ -70,9 +93,11 @@ public class ChallengeDetailsActivity extends AppCompatActivity {
         CheckBox mCheck;
         TextView mFrom;
         TextView mTo;
+        LinearLayout mLayout;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
+            mLayout = (LinearLayout) itemView.findViewById(R.id.layoutTask);
             mText = (TextView) itemView.findViewById(R.id.text1);
             mCheck = (CheckBox) itemView.findViewById(R.id.check1);
             mFrom = (TextView) itemView.findViewById(R.id.text_from);
