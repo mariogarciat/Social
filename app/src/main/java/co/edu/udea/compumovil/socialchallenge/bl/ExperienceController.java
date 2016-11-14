@@ -6,6 +6,7 @@ package co.edu.udea.compumovil.socialchallenge.bl;
 
 public class ExperienceController {
 
+
     public int ExpProgress(int lvl, int exp) {
 
         int progress = 0;

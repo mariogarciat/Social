@@ -88,40 +88,47 @@
         <CheckBox
             android:id="@+id/c_mon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:onClick="onCheckBoxSelected"/>
         <CheckBox
             android:id="@+id/c_tue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_mon"/>
+            android:layout_toRightOf="@+id/c_mon"
+            android:onClick="onCheckBoxSelected"/>
         <CheckBox
             android:id="@+id/c_wed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_tue"/>
+            android:layout_toRightOf="@+id/c_tue"
+            android:onClick="onCheckBoxSelected"/>
         <CheckBox
             android:id="@+id/c_thu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_wed"/>
+            android:layout_toRightOf="@+id/c_wed"
+            android:onClick="onCheckBoxSelected"/>
 
         <CheckBox
             android:id="@+id/c_fry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_thu"/>
+            android:layout_toRightOf="@+id/c_thu"
+            android:onClick="onCheckBoxSelected"/>
 
         <CheckBox
             android:id="@+id/c_sat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_fry"/>
+            android:layout_toRightOf="@+id/c_fry"
+            android:onClick="onCheckBoxSelected"/>
 
         <CheckBox
             android:id="@+id/c_sun"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/c_sat"/>
+            android:layout_toRightOf="@+id/c_sat"
+            android:onClick="onCheckBoxSelected"/>
 
     </RelativeLayout>
 
