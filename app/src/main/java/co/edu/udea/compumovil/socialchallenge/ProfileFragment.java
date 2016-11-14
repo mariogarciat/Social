@@ -25,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import co.edu.udea.compumovil.socialchallenge.bl.ExperienceController;
 import co.edu.udea.compumovil.socialchallenge.entities.User;
 
 
@@ -70,7 +71,9 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.getValue(User.class);
-                    updateExperience(view, user.getExp());
+                    int rExp = new ExperienceController().ExpProgress(user.getLvl(),
+                            user.getExp());
+                    updateExperience(view, rExp);
                 }
 
                 @Override

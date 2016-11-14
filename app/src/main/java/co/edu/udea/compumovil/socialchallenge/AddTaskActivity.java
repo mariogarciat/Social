@@ -81,7 +81,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 stringTask = editTask.getText().toString();
                 sBeginAt = editBegin.getText().toString();
                 sFinishAt = editFinish.getText().toString();
-                
+
                 if(!"".equals(stringTask) && !"".equals(sBeginAt) && !"".equals(sFinishAt)){
 
                     task.setName(stringTask);

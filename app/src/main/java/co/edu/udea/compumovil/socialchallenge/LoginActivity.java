@@ -75,10 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                         if (!dataSnapshot.exists()) {
                             // User Does not Exists
-                            Log.d("MyApp","Its alive");
                             writeNewUser(user.getUid(),user.getDisplayName(), user.getEmail());
-                        }else {
-                            Log.d("MyApp","is bad");
                         }
                     }
 
