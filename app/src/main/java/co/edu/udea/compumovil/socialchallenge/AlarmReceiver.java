@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -42,11 +43,13 @@ public class AlarmReceiver extends BroadcastReceiver {
         notification.defaults |= Notification.DEFAULT_SOUND;
         notofManager.notify(NOTIF_ID,notification);*/
 
+        Log.d("tag", "enter to receiver");
         notiManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         Notification notification = intent.getParcelableExtra(NOTIFICATION);
         int id = intent.getIntExtra(NOTIFICATION_ID, 0);
         notiManager.notify(id, notification);
+        Log.d("tag", "out of receiver");
 
     }
 }

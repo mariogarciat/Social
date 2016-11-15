@@ -87,9 +87,10 @@ public class AddTaskActivity extends AppCompatActivity {
                     task.setName(stringTask);
                     task.setTimeBegin(sBeginAt);
                     task.setTimeEnd(sFinishAt);
-                    Log.d("tag", "listDays "+ listDays.get(1));
                     task.setDays(listDays);
-
+                    for (int i = 0; i < listDays.size(); i++){
+                        Log.d("tag", listDays.get(i));
+                    }
                     Intent intent = new Intent();
                     intent.putExtra("task", task);
                     /*intent.putExtra("name", stringTask);
@@ -112,31 +113,48 @@ public class AddTaskActivity extends AppCompatActivity {
             case R.id.c_mon:
                 if (checked){
                     listDays.add("Moday");
+                    Log.d("tag", "Monday added");
+                    return;
                 }
             case R.id.c_tue:
                 if (checked){
                     listDays.add("Tuesday");
+                    Log.d("tag", "Tuesday added");
+                    return;
                 }
             case R.id.c_wed:
                 if (checked){
                     listDays.add("Wednesday");
+                    Log.d("tag", "Wednesday added");
+                    return;
                 }
             case R.id.c_thu:
                 if (checked){
                     listDays.add("Thursday");
+                    Log.d("tag", "Thursday added");
+                    return;
                 }
             case R.id.c_fry:
                 if (checked){
                     listDays.add("Friday");
+                    Log.d("tag", "Friday added");
+                    return;
                 }
             case R.id.c_sat:
                 if (checked){
                     listDays.add("Saturday");
+                    Log.d("tag", "Saturday added");
+                    return;
                 }
             case R.id.c_sun:
                 if (checked){
                     listDays.add("Sunday");
+                    Log.d("tag", "Sunday added");
+                    return;
                 }
+        }
+        for (int i = 0; i < listDays.size(); i++){
+            Log.d("tag", listDays.get(i));
         }
     }
 

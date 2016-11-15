@@ -84,40 +84,46 @@ public class AddChallenge extends AppCompatActivity  {
 
         if(id == R.id.button_save) {
 
-            taskDays = task.getDays();
-            Log.d("tag", "for() days"+ taskDays.get(1));
-            for(int i = 0; i < taskDays.size(); i++){
-                Log.d("tag", "position "+i);
-                String stringTask = taskDays.get(i);
-                if(taskDays.contains("Monday")){
-                    setAlarmDay(2, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday: "+taskDays.get(i));
+            for(int j = 0; j < taskList.size(); j++){
+                Log.d("tag", "position j = "+j);
+                Task taskTest = taskList.get(j);
+                taskDays = taskTest.getDays();
+                String stringTask = taskTest.getName();
+                for(int i = 0; i < taskDays.size(); i++){
+                    Log.d("tag", "position i= "+i);
+                    if(taskDays.contains("Monday")){
+                        setAlarmDay(2, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm " + stringTask + " set on : "+taskDays.get(i));
+                    }
+                    else if(taskDays.contains("Tuesday")){
+                        setAlarmDay(3, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+
+                    }
+                    else if(taskDays.contains("Wednesday")){
+                        setAlarmDay(4, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+                    }
+                    else if(taskDays.contains("Thursday")){
+                        setAlarmDay(5, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+                    }
+                    else if(taskDays.contains("Friday")){
+                        setAlarmDay(6, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+                    }
+                    else if(taskDays.contains("Saturday")){
+                        setAlarmDay(7, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+                    }
+                    else if(taskDays.contains("Sunday")){
+                        setAlarmDay(1, getNotification(stringTask), taskTest);
+                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+                    }
                 }
-                else if(taskDays.contains("Tuesday")){
-                    setAlarmDay(3, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
-                else if(taskDays.contains("Wednesday")){
-                    setAlarmDay(4, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
-                else if(taskDays.contains("Thursday")){
-                    setAlarmDay(5, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
-                else if(taskDays.contains("Friday")){
-                    setAlarmDay(6, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
-                else if(taskDays.contains("Saturday")){
-                    setAlarmDay(7, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
-                else if(taskDays.contains("Sunday")){
-                    setAlarmDay(1, getNotification(stringTask));
-                    Log.d("tag", "alarm set on monday"+taskDays.get(i));
-                }
+
             }
+
 
             challengeName = (TextView) findViewById(R.id.challenge_name_edit);
             String name = challengeName.getText().toString();
@@ -189,12 +195,14 @@ public class AddChallenge extends AppCompatActivity  {
         listTasks.setAdapter(new TaskAdapter(this,taskList));
     }
 
-    public void setAlarmDay(int day, Notification notification){
+    public void setAlarmDay(int day, Notification notification, Task task){
         String[] hoursMinutes;
         hoursMinutes = task.getTimeBegin().split(":");
 
         int hours = Integer.parseInt(hoursMinutes[0]);
         int minutes = Integer.parseInt(hoursMinutes[1]);
+        Log.d("tag", "hour = "+hours);
+        Log.d("tag", "minute = "+minutes);
         calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_WEEK,day);
         calendar.set(Calendar.HOUR_OF_DAY,hours);
@@ -203,7 +211,7 @@ public class AddChallenge extends AppCompatActivity  {
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
         intent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1);
         intent.putExtra(AlarmReceiver.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 154, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24 * 7 * 60 * 60 * 1000, pendingIntent);
     }

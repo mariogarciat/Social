@@ -82,16 +82,16 @@ public class ChallengeDetailsActivity extends AppCompatActivity {
                             viewHolder.mText.setVisibility(View.VISIBLE);
                             viewHolder.mFrom.setVisibility(View.VISIBLE);
                             viewHolder.mTo.setVisibility(View.VISIBLE);
-                            viewHolder.tvFrom.setVisibility(View.VISIBLE);
-                            viewHolder.tvTo.setVisibility(View.VISIBLE);
                         } else {
 
+                            viewHolder.viewFrom.setText("Task "+model.getName()+" completed");
+                            viewHolder.viewFrom.setTextSize(20);
+                            viewHolder.viewTo.setVisibility(View.GONE);
                             viewHolder.mCheck.setVisibility(View.GONE);
                             viewHolder.mText.setVisibility(View.GONE);
                             viewHolder.mFrom.setVisibility(View.GONE);
                             viewHolder.mTo.setVisibility(View.GONE);
-                            viewHolder.tvFrom.setVisibility(View.GONE);
-                            viewHolder.tvTo.setVisibility(View.GONE);
+                            viewHolder.mLayout.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
                         }
 
                         viewHolder.mCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -130,8 +130,8 @@ public class ChallengeDetailsActivity extends AppCompatActivity {
         TextView mFrom;
         TextView mTo;
         LinearLayout mLayout;
-        TextView tvTo;
-        TextView tvFrom;
+        TextView viewTo;
+        TextView viewFrom;
 
         public MessageViewHolder(View itemView) {
             super(itemView);
@@ -140,8 +140,8 @@ public class ChallengeDetailsActivity extends AppCompatActivity {
             mCheck = (CheckBox) itemView.findViewById(R.id.check1);
             mFrom = (TextView) itemView.findViewById(R.id.text_from);
             mTo = (TextView) itemView.findViewById(R.id.text_to);
-            tvFrom = (TextView) itemView.findViewById(R.id.tvFrom);
-            tvTo = (TextView) itemView.findViewById(R.id.tv_to);
+            viewFrom = (TextView) itemView.findViewById(R.id.viewFrom);
+            viewTo = (TextView) itemView.findViewById(R.id.viewTo);
         }
 
 
