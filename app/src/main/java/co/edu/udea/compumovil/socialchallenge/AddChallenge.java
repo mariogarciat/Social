@@ -84,6 +84,7 @@ public class AddChallenge extends AppCompatActivity  {
 
         if(id == R.id.button_save) {
 
+
             for(int j = 0; j < taskList.size(); j++){
                 Log.d("tag", "position j = "+j);
                 Task taskTest = taskList.get(j);
