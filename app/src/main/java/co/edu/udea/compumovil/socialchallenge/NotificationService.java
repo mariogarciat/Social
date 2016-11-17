@@ -4,6 +4,9 @@ import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 
 
 /**
@@ -41,6 +44,11 @@ public class NotificationService extends IntentService {
         builder.setContentTitle("Time to this task: ");
         builder.setContentText(content);
         builder.setSmallIcon(R.drawable.logo);
+        builder.setVibrate(new long[]{0,1000,1000,1000,1000});
+        builder.setLights(0xF03030,3000,3000);
+        Uri notiSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(notiSound);
+
         return builder.build();
     }
 
