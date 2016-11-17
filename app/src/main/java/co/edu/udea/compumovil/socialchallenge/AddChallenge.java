@@ -5,6 +5,7 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -27,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import co.edu.udea.compumovil.socialchallenge.adapters.TaskAdapter;
+import co.edu.udea.compumovil.socialchallenge.entities.ActivityNotification;
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
@@ -135,9 +137,16 @@ public class AddChallenge extends AppCompatActivity  {
                 Challenge challenge = new Challenge();
                 challenge.setTitle(name);
                 challenge.setTasks(taskList);
-
+                ActivityNotification activityNotification = new ActivityNotification();
+                String content = auth.getCurrentUser().getDisplayName()
+                        + " has started a new Challenge: " + challenge.getTitle();
+                activityNotification.setContent(content);
+                activityNotification.setUser(auth.getCurrentUser().getUid());
+                String photo = auth.getCurrentUser().getPhotoUrl().toString();
+                Log.d("MyApp", photo);
+                activityNotification.setPhoto(photo);
                 mDatabase.push().setValue(challenge);
-                dataBaseActivities.push().child(auth.getCurrentUser().getUid()).setValue(challenge.getTitle());
+                dataBaseActivities.push().setValue(activityNotification);
                 Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
                 this.finish();
             }else {

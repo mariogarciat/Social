@@ -3,12 +3,7 @@ package co.edu.udea.compumovil.socialchallenge.entities;
 
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Calendar;
 import java.util.List;
 
 /**

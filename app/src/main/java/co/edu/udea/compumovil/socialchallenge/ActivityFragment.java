@@ -19,6 +19,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+
+import co.edu.udea.compumovil.socialchallenge.entities.ActivityNotification;
 import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 
 
@@ -51,7 +54,7 @@ public class ActivityFragment extends Fragment {
         listChallenges = (RecyclerView) view.findViewById(R.id.challenge_list);
         listChallenges.setLayoutManager(new LinearLayoutManager(getContext()));
         auth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("activity");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("activities");
         mDatabase.keepSynced(true);
         userDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
 
@@ -64,35 +67,25 @@ public class ActivityFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        final FirebaseRecyclerAdapter<Challenge, MessageViewHolder> adapter =
-                new FirebaseRecyclerAdapter<Challenge, MessageViewHolder>(
+        final FirebaseRecyclerAdapter<ActivityNotification, MessageViewHolder> adapter =
+                new FirebaseRecyclerAdapter<ActivityNotification, MessageViewHolder>(
 
-                        Challenge.class,
+                        ActivityNotification.class,
                         R.layout.layout_list_challenges,
                         MessageViewHolder.class,
                         mDatabase
                 ) {
                     @Override
                     protected void populateViewHolder(MessageViewHolder viewHolder,
-                                                      final Challenge model, final int position) {
-                        viewHolder.mText.setText(model.getTitle());
+                                                      final ActivityNotification model, final int position) {
+                        viewHolder.mText.setText(model.getContent());
 
                         Glide.with(getContext())
-                                .load(auth.getCurrentUser().getPhotoUrl())
+                                .load(model.getPhoto())
                                 .fitCenter()
                                 .into(viewHolder.mImageView);
 
-                        viewHolder.mText.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-
-                                Intent intent = new Intent(getContext(),ChallengeDetailsActivity.class);
-                                intent.putExtra("challengeID", getRef(position).getKey());
-                                Log.d("MyApp",getRef(position).getKey());
-                                startActivity(intent);
-                            }
-                        });
-                    }
+                        }
                 };
 
         listChallenges.setAdapter(adapter);

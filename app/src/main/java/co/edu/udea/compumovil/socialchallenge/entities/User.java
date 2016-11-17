@@ -1,5 +1,6 @@
 package co.edu.udea.compumovil.socialchallenge.entities;
 
+
 /**
  * Created by steven on 9/10/16.
  */
@@ -10,9 +11,18 @@ public class User {
     private String email;
     private Integer exp;
     private Integer lvl;
+    private String profilePhoto;
 
     public User() {
 
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 
     public Integer getExp() {
