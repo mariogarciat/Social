@@ -1,6 +1,7 @@
 package co.edu.udea.compumovil.socialchallenge;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -75,7 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                         if (!dataSnapshot.exists()) {
                             // User Does not Exists
-                            writeNewUser(user.getUid(),user.getDisplayName(), user.getEmail());
+                            writeNewUser(user.getUid(),user.getDisplayName(), user.getEmail(),
+                                    user.getPhotoUrl());
                         }
                     }
 
@@ -96,8 +98,9 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void writeNewUser(String userId, String name, String email) {
+    private void writeNewUser(String userId, String name, String email, Uri photo) {
         User user = new User(name, email);
+        user.setProfilePhoto(photo.toString());
 
         mDatabase.child(userId).setValue(user);
     }
