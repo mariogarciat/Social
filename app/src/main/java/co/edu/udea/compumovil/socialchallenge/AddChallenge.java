@@ -35,6 +35,8 @@ public class AddChallenge extends AppCompatActivity  {
 
 
     private DatabaseReference mDatabase;
+    private DatabaseReference dataBaseActivities;
+    private DatabaseReference dataBaseUsers;
     private TextView challengeName;
     private FirebaseAuth auth;
     private ListView listTasks;
@@ -58,6 +60,8 @@ public class AddChallenge extends AppCompatActivity  {
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges")
         .child(auth.getCurrentUser().getUid());
+        dataBaseActivities = FirebaseDatabase.getInstance().getReference().child("activities");
+
         mDatabase.keepSynced(true);
 
 
@@ -133,6 +137,7 @@ public class AddChallenge extends AppCompatActivity  {
                 challenge.setTasks(taskList);
 
                 mDatabase.push().setValue(challenge);
+                dataBaseActivities.push().child(auth.getCurrentUser().getUid()).setValue(challenge.getTitle());
                 Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
                 this.finish();
             }else {
