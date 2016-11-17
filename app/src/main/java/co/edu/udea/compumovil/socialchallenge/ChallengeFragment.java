@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -126,7 +129,18 @@ public class ChallengeFragment extends Fragment {
                                 startActivity(intent);
                             }
                         });
+                        viewHolder.mText.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                Toast.makeText(getContext(), "Delete action", Toast.LENGTH_SHORT).show();
+                                return true;
+                            }
+                        });
+
+
                     }
+
+
                 };
 
         listChallenges.setAdapter(adapter);
@@ -147,5 +161,11 @@ public class ChallengeFragment extends Fragment {
         }
 
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        
     }
 }
