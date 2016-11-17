@@ -33,7 +33,7 @@ import co.edu.udea.compumovil.socialchallenge.entities.Challenge;
 import co.edu.udea.compumovil.socialchallenge.entities.Task;
 
 
-public class AddChallenge extends AppCompatActivity  {
+public class AddChallenge extends AppCompatActivity {
 
 
     private DatabaseReference mDatabase;
@@ -43,9 +43,6 @@ public class AddChallenge extends AppCompatActivity  {
     private FirebaseAuth auth;
     private ListView listTasks;
     private static final int REQUEST_CODE = 10;
-    private String taskName;
-    private String beginTask;
-    private String finishTask;
     private List<String> taskDays;
     private List<Task> taskList;
     private Task task;
@@ -61,7 +58,7 @@ public class AddChallenge extends AppCompatActivity  {
 
         auth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges")
-        .child(auth.getCurrentUser().getUid());
+                .child(auth.getCurrentUser().getUid());
         dataBaseActivities = FirebaseDatabase.getInstance().getReference().child("activities");
 
         mDatabase.keepSynced(true);
@@ -88,71 +85,72 @@ public class AddChallenge extends AppCompatActivity  {
 
         //noinspection SimplifiableIfStatement
 
-        if(id == R.id.button_save) {
+        if (id == R.id.button_save) {
 
-            for(int j = 0; j < taskList.size(); j++){
-                Log.d("tag", "position j = "+j);
-                Task taskTest = taskList.get(j);
-                taskDays = taskTest.getDays();
-                String stringTask = taskTest.getName();
-                for(int i = 0; i < taskDays.size(); i++){
-                    Log.d("tag", "position i= "+i);
-                    if(taskDays.contains("Monday")){
-                        setAlarmDay(2, taskTest);
-                        Log.d("tag", "alarm " + stringTask + " set on : "+taskDays.get(i));
-                    }
-                    else if(taskDays.contains("Tuesday")){
-                        setAlarmDay(3, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
+            if (!taskList.isEmpty()) {
+                for (int j = 0; j < taskList.size(); j++) {
+                    Log.d("tag", "position j = " + j);
+                    Task taskTest = taskList.get(j);
+                    taskDays = taskTest.getDays();
+                    String stringTask = taskTest.getName();
+                    for (int i = 0; i < taskDays.size(); i++) {
+                        Log.d("tag", "position i= " + i);
+                        if (taskDays.contains("Monday")) {
+                            setAlarmDay(2, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on : " + taskDays.get(i));
+                        } else if (taskDays.contains("Tuesday")) {
+                            setAlarmDay(3, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
 
+                        } else if (taskDays.contains("Wednesday")) {
+                            setAlarmDay(4, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
+                        } else if (taskDays.contains("Thursday")) {
+                            setAlarmDay(5, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
+                        } else if (taskDays.contains("Friday")) {
+                            setAlarmDay(6, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
+                        } else if (taskDays.contains("Saturday")) {
+                            setAlarmDay(7, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
+                        } else if (taskDays.contains("Sunday")) {
+                            setAlarmDay(1, taskTest);
+                            Log.d("tag", "alarm " + stringTask + " set on " + taskDays.get(i));
+                        }
                     }
-                    else if(taskDays.contains("Wednesday")){
-                        setAlarmDay(4, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
-                    }
-                    else if(taskDays.contains("Thursday")){
-                        setAlarmDay(5, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
-                    }
-                    else if(taskDays.contains("Friday")){
-                        setAlarmDay(6, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
-                    }
-                    else if(taskDays.contains("Saturday")){
-                        setAlarmDay(7, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
-                    }
-                    else if(taskDays.contains("Sunday")){
-                        setAlarmDay(1, taskTest);
-                        Log.d("tag", "alarm "+stringTask+" set on "+taskDays.get(i));
-                    }
+
                 }
 
-            }
+                challengeName = (TextView) findViewById(R.id.challenge_name_edit);
+                String name = challengeName.getText().toString();
+                if (auth.getCurrentUser() != null && !TextUtils.isEmpty(name)) {
 
-            challengeName = (TextView) findViewById(R.id.challenge_name_edit);
-            String name = challengeName.getText().toString();
-            if (auth.getCurrentUser() != null && !TextUtils.isEmpty(name)) {
+                    Challenge challenge = new Challenge();
+                    challenge.setTitle(name);
+                    challenge.setTasks(taskList);
+                    ActivityNotification activityNotification = new ActivityNotification();
+                    String content = auth.getCurrentUser().getDisplayName()
+                            + " has started a new Challenge: " + challenge.getTitle();
+                    activityNotification.setContent(content);
+                    activityNotification.setUser(auth.getCurrentUser().getUid());
+                    String photo = auth.getCurrentUser().getPhotoUrl().toString();
+                    Log.d("MyApp", photo);
+                    activityNotification.setPhoto(photo);
+                    mDatabase.push().setValue(challenge);
+                    dataBaseActivities.push().setValue(activityNotification);
+                    Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
+                    this.finish();
+                } else {
 
-                Challenge challenge = new Challenge();
-                challenge.setTitle(name);
-                challenge.setTasks(taskList);
-                ActivityNotification activityNotification = new ActivityNotification();
-                String content = auth.getCurrentUser().getDisplayName()
-                        + " has started a new Challenge: " + challenge.getTitle();
-                activityNotification.setContent(content);
-                activityNotification.setUser(auth.getCurrentUser().getUid());
-                String photo = auth.getCurrentUser().getPhotoUrl().toString();
-                Log.d("MyApp", photo);
-                activityNotification.setPhoto(photo);
-                mDatabase.push().setValue(challenge);
-                dataBaseActivities.push().setValue(activityNotification);
-                Toast.makeText(this, "Challenge added", Toast.LENGTH_LONG).show();
-                this.finish();
+                    Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_LONG).show();
+                }
+
             }else {
-
-                Toast.makeText(this,"Please fill all the fields",Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please add one or more tasks", Toast.LENGTH_LONG).show();
             }
+
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -172,33 +170,33 @@ public class AddChallenge extends AppCompatActivity  {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(data != null){
-            if(resultCode == RESULT_OK && requestCode == REQUEST_CODE){
-                if(data.hasExtra("task")){
+        if (data != null) {
+            if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+                if (data.hasExtra("task")) {
                     task = (Task) data.getSerializableExtra("task");
-                    Log.d("tag", "task " + task.getName() +" received");
+                    Log.d("tag", "task " + task.getName() + " received");
                 }
             }
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), "data es nulo", Toast.LENGTH_SHORT).show();
         }
         taskList.add(task);
         Log.d("tag", "task added");
-        listTasks.setAdapter(new TaskAdapter(this,taskList));
+        listTasks.setAdapter(new TaskAdapter(this, taskList));
     }
 
-    public void setAlarmDay(int day, Task task){
+    public void setAlarmDay(int day, Task task) {
         String[] hoursMinutes;
         hoursMinutes = task.getTimeBegin().split(":");
         String taskContent = task.getName();
 
         int hours = Integer.parseInt(hoursMinutes[0]);
         int minutes = Integer.parseInt(hoursMinutes[1]);
-        Log.d("tag", "hour = "+hours);
-        Log.d("tag", "minute = "+minutes);
+        Log.d("tag", "hour = " + hours);
+        Log.d("tag", "minute = " + minutes);
         calendar = Calendar.getInstance();
-        calendar.set(Calendar.DAY_OF_WEEK,day);
-        calendar.set(Calendar.HOUR_OF_DAY,hours);
+        calendar.set(Calendar.DAY_OF_WEEK, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hours);
         calendar.set(Calendar.MINUTE, minutes);
 
         Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
