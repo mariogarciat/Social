@@ -8,5 +8,6 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorFinish">#00BFA5</color>
     <color name="colorBorder">#b3caef</color>
+    <color name="colorText">#4d5666</color>
 
 </resources>

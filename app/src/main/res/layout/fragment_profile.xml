@@ -10,12 +10,7 @@
     tools:context="co.edu.udea.compumovil.socialchallenge.ProfileFragment">
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <RelativeLayout
+     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
@@ -94,11 +89,5 @@
             </LinearLayout>
 
         </RelativeLayout>
-
-
-
-    </ScrollView>
-
-
 
 </FrameLayout>
