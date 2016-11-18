@@ -21,12 +21,15 @@ import android.view.ViewGroup;
 
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.auth.api.Auth;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
     private FirebaseAuth auth;
+    private DatabaseReference mDatabase;
+    public static boolean IsInDeleteMenu = false;
+    public static String keyToDelete = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         auth = FirebaseAuth.getInstance();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("challenges");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,6 +116,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent =  new Intent(this, AddChallenge.class);
             startActivity(intent);
 
+
+        }
+        if (id == android.R.id.home) {
+            clearActionMode();
+
+        }
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.button_delete) {
+            mDatabase.child(auth.getCurrentUser().getUid()).child(keyToDelete).removeValue();
+            Toast.makeText(this,"Challenge Deleted", Toast.LENGTH_SHORT).show();
+            clearActionMode();
 
         }
 
@@ -165,5 +183,27 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (IsInDeleteMenu) {
+            clearActionMode();
+
+        }else {
+            super.onBackPressed();
+
+        }
+
+    }
+
+    private void clearActionMode() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.menu_main);
+        getSupportActionBar().
+                setDisplayHomeAsUpEnabled(false);
+        IsInDeleteMenu = false;
     }
 }

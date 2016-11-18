@@ -5,12 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -109,6 +113,8 @@ public class ChallengeFragment extends Fragment {
                     @Override
                     protected void populateViewHolder(MessageViewHolder viewHolder,
                                                       final Challenge model, final int position) {
+
+
                         viewHolder.mText.setText(model.getTitle());
                         if(model.isFinish()){
                             viewHolder.mText.setBackground(getResources().getDrawable(R.drawable.text_view_background_finish));
@@ -132,11 +138,18 @@ public class ChallengeFragment extends Fragment {
                         viewHolder.mText.setOnLongClickListener(new View.OnLongClickListener() {
                             @Override
                             public boolean onLongClick(View v) {
-                                Toast.makeText(getContext(), "Delete action", Toast.LENGTH_SHORT).show();
+                                Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+                                toolbar.getMenu().clear();
+                                toolbar.inflateMenu(R.menu.menu_delete);
+                                ((AppCompatActivity)getActivity()).getSupportActionBar().
+                                        setDisplayHomeAsUpEnabled(true);
+                                ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+                                MainActivity.IsInDeleteMenu = true;
+                                MainActivity.keyToDelete = getRef(position).getKey();
+                                v.setBackground(getResources().getDrawable(R.drawable.text_view_background_selected));
                                 return true;
                             }
                         });
-
 
                     }
 
@@ -146,12 +159,12 @@ public class ChallengeFragment extends Fragment {
         listChallenges.setAdapter(adapter);
     }
 
+
     public  static class MessageViewHolder
         extends RecyclerView.ViewHolder {
 
         TextView mText;
         ImageView mImageView;
-
 
         public MessageViewHolder(View itemView) {
             super(itemView);
@@ -163,9 +176,7 @@ public class ChallengeFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        
-    }
+
+
+
 }
