@@ -15,6 +15,9 @@ public class User {
 
     public User() {
 
+        this.lvl = 1;
+        this.exp = 0;
+
     }
 
     public String getProfilePhoto() {
